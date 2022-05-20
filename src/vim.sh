@@ -9,8 +9,11 @@ git clone https://github.com/VundleVim/Vundle.vim.git $dest/.vim/bundle/Vundle.v
 mkdir $dest/Documents/configs
 git clone https://github.com/eycer1995/configs $dest/Documents/configs
 cp $dest/Documents/configs/src/.vimrc $dest
+cp $dest/Documents/configs/src/.gitignore $dest
 chown -R eycer:eycer $dest/.vim
 chown eycer:eycer $dest/.vimrc
+chown eycer:eycer $dest/.gitignore
+git config --global core.excludesfile $dest/.gitignore
 runuser -l eycer -c 'vim +PluginInstall +qall'
 dnf install cmake gcc-c++ make python3-devel -y
 runuser -l eycer -c 'python3 /home/eycer/.vim/bundle/YouCompleteMe/install.py'
