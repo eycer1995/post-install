@@ -50,7 +50,7 @@ dnf install kernel-headers kernel-devel dkms elfutils-libelf-devel qt5-qtx11extr
 cat <<EOF | tee /etc/yum.repos.d/virtualbox.repo
 [virtualbox]
 name=Fedora $releasever - $basearch - VirtualBox
-baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/36/\$basearch
+baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
@@ -68,3 +68,7 @@ dnf install java-1.8.0-openjdk -y
 
 # Add flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# Testing Kicad and Blender
+# flatpak install flathub org.kicad.KiCad
+# flatpak install flathub org.blender.Blender
