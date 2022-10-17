@@ -22,21 +22,9 @@ dnf install cmake gcc-c++ make python3-devel -y
 runuser -l eycer -c 'python3 /home/eycer/.vim/bundle/YouCompleteMe/install.py'
 echo "Vim install finished!"
 
-# Install Brave
-dnf install dnf-plugins-core -y
-dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
-rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-dnf install brave-browser -y
-
 # Add rpm repos
 dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y
 dnf install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
-
-# Install discord
-dnf install discord -y
-
-# Install Steam
-dnf install steam -y
 
 # Install Nvidia Drivers
 dnf install akmod-nvidia -y
@@ -60,15 +48,32 @@ dnf install VirtualBox-6.1 -y
 usermod -aG vboxusers eycer
 
 # Misc
-curl -LO https://zoom.us/client/latest/zoom_x86_64.rpm
-dnf localinstall zoom_x86_64.rpm -y
-rm zoom_x86_64.rpm
 dnf install keepassxc vlc -y
 dnf install java-1.8.0-openjdk -y
 
-# Add flatpak
+# Add flatpak remote
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# Testing Kicad and Blender
-# flatpak install flathub org.kicad.KiCad
-# flatpak install flathub org.blender.Blender
+# --- All flatpak apps ---
+
+flatpak install -y flathub md.obsidian.Obsidian
+flatpak install -y flathub com.brave.Browser
+flatpak install -y flathub org.deluge_torrent.deluge
+
+# 3D print and circuit design
+flatpak install -y flathub com.ultimaker.cura
+flatpak install -y flathub org.kicad.KiCad
+flatpak install -y flathub org.blender.Blender
+
+# Media
+flatpak install -y flathub com.github.iwalton3.jellyfin-media-player
+flatpak install -y flathub org.videolan.VLC
+flatpak install -y flathub org.shotcut.Shotcut
+flatpak install -y flathub com.obsproject.Studio
+
+# Gaming
+flatpak install -y flathub com.heroicgameslauncher.hgl
+flatpak install -y flathub net.lutris.Lutris
+flatpak install -y flathub com.discordapp.Discord
+flatpak install -y flathub com.valvesoftware.Steam
+flatpak install -y flathub org.polymc.PolyMC
