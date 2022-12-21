@@ -28,7 +28,6 @@ dnf install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-relea
 
 # Install Nvidia Drivers
 dnf install akmod-nvidia -y
-modinfo -F version nvidia 
 # wait after the RPM transaction ends, until the kmod get built. 
 # This can take up to 5 minutes on some systems.
 
@@ -48,13 +47,23 @@ dnf install VirtualBox-6.1 -y
 usermod -aG vboxusers eycer
 
 # Misc
-dnf install keepassxc vlc -y
+dnf install keepassxc vlc steam -y
+dnf isntall p7zip* -y
 dnf install java-1.8.0-openjdk -y
+dnf install piper -y
+
+# Install syncthing
+
+
+# Install platformio
+
 
 # Add flatpak remote
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # --- All flatpak apps ---
+#
+# Steam and VLC flatpak didn't work as I wanted
 
 flatpak install -y flathub md.obsidian.Obsidian
 flatpak install -y flathub com.brave.Browser
@@ -67,7 +76,6 @@ flatpak install -y flathub org.blender.Blender
 
 # Media
 flatpak install -y flathub com.github.iwalton3.jellyfin-media-player
-flatpak install -y flathub org.videolan.VLC
 flatpak install -y flathub org.shotcut.Shotcut
 flatpak install -y flathub com.obsproject.Studio
 
@@ -75,5 +83,7 @@ flatpak install -y flathub com.obsproject.Studio
 flatpak install -y flathub com.heroicgameslauncher.hgl
 flatpak install -y flathub net.lutris.Lutris
 flatpak install -y flathub com.discordapp.Discord
-flatpak install -y flathub com.valvesoftware.Steam
 flatpak install -y flathub org.polymc.PolyMC
+
+# Check Nvidia
+modinfo -F version nvidia 
