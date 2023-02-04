@@ -5,6 +5,10 @@ dnf swap @gnome-desktop @kde-desktop -y
 
 dest="/home/eycer"
 
+# Virtualbox variables
+releasever=$(cat /etc/os-release | awk -F"=" '/VERSION_ID/ {print $2}')
+basearch=$(uname -p)
+
 # Install vim
 dnf install vim git -y
 cd ~
