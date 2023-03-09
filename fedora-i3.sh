@@ -1,7 +1,7 @@
 #! /bin/bash
 
 sudo dnf update -y
-sudo dnf install btop alacritty polybar vim feh ranger git -y
+sudo dnf install btop alacritty polybar vim feh ranger git picom -y
 
 # Optional
 sudo dnf install cmatrix cava neofetch zsh -y
@@ -19,6 +19,19 @@ rm -r ~/Documents/configs
 
 # Download wallpaper
 wget https://w.wallhaven.cc/full/r2/wallhaven-r27x11.jpg -O ~/Pictures/blue.jpg
+
+# pfetch install
+wget -O pfetch https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch
+chmod +x pfetch
+mv pfetch $HOME/.local/bin
+
+# pipes.sh
+git clone https://github.com/pipeseroni/pipes.sh
+cd pipes.sh
+make PREFIX=$HOME/.local install
+cd ~
+rm -r pipes.sh
+
 
 # Install ohmyzsh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
