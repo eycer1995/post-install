@@ -21,10 +21,10 @@ sudo dnf install keepassxc vlc steam -y
 sudo dnf install p7zip* -y
 sudo dnf install java-1.8.0-openjdk -y
 sudo dnf install piper -y
-sudo dnf install fontawesome5-fonts-all
+sudo dnf install fontawesome5-fonts-all -y
 
 # Add flatpak remote
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # --- All flatpak apps ---
 #
@@ -58,6 +58,21 @@ git clone https://github.com/eycer1995/configs ~/Documents/configs
 cp -r -p ~/Documents/configs/.config $HOME
 cp -p ~/Documents/configs/.vimrc $HOME
 cp -p ~/Documents/configs/.bashrc $HOME
+cp -r -p ~/Documents/configs/.local $HOME
+
+# Rofi configs
+sudo dnf install papirus-icon-theme -y # rofi icons
+mkdir .fonts
+cd .fonts
+wget -O iosevka.zip "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Iosevka.zip"
+unzip iosevka.zip
+rm iosevka.zip LICENSE.md readme.md
+wget -O jetbrains.zip "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/JetBrainsMono.zip"
+unzip jetbrains.zip
+rm jetbrains.zip readme.md OFL.txt
+fc-cache -fv
+cd ~
+# select theme using rofi-theme-selector
 
 # Clean configs
 rm -r ~/Documents/configs
@@ -68,7 +83,8 @@ wget https://w.wallhaven.cc/full/r2/wallhaven-r27x11.jpg -O ~/Pictures/blue.jpg
 # pfetch install
 wget -O pfetch https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch
 chmod +x pfetch
-mv pfetch $HOME/.local/bin
+mkdir .local/bin
+mv pfetch $HOME/.local/bin/
 
 # pipes.sh
 git clone https://github.com/pipeseroni/pipes.sh
