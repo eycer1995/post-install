@@ -16,8 +16,23 @@ sudo dnf install mpd -y
 # Install Nvidia Drives
 sudo dnf install akmod-nvidia -y
 
+# Install VirtualBox
+sudo dnf install @development-tools -y
+sudo dnf install kernel-headers kernel-devel dkms elfutils-libelf-devel qt5-qtx11extras -y
+sudo cat <<EOF | tee /etc/yum.repos.d/virtualbox.repo
+[virtualbox]
+name=Fedora 37 - x86_64 - VirtualBox
+baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/36/x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://www.virtualbox.org/download/oracle_vbox.asc
+EOF
+sudo dnf install VirtualBox-7.0 -y
+sudo usermod -aG vboxusers eycer
+
 # Misc
-sudo dnf install keepassxc vlc steam -y
+sudo dnf install keepassxc vlc steam syncthing -y
 sudo dnf install p7zip* -y
 sudo dnf install java-1.8.0-openjdk -y
 sudo dnf install piper -y
@@ -92,6 +107,13 @@ cd pipes.sh
 make PREFIX=$HOME/.local install
 cd ~
 rm -r pipes.sh
+
+# Install Heroic Launcher
+sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/37/winehq.repo
+sudo dnf install winehq-stable
+sudo dnf copr enable atim/heroic-games-launcher
+sudo dnf install heroic-games-launcher-bin
+
 
 # Install ohmyzsh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
