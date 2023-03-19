@@ -90,7 +90,7 @@ cd ~
 # select theme using rofi-theme-selector
 
 # Clean configs
-rm -r ~/Documents/configs
+rm -rf ~/Documents/configs
 
 # Download wallpaper
 wget https://w.wallhaven.cc/full/r2/wallhaven-r27x11.jpg -O ~/Pictures/blue.jpg
@@ -106,7 +106,7 @@ git clone https://github.com/pipeseroni/pipes.sh
 cd pipes.sh
 make PREFIX=$HOME/.local install
 cd ~
-rm -r pipes.sh
+rm -rf pipes.sh
 
 # Install Heroic Launcher
 sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/37/winehq.repo
