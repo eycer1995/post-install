@@ -1,10 +1,9 @@
 #! /bin/bash
 
 sudo dnf update -y
-sudo dnf install btop alacritty polybar vim feh ranger git picom -y
 
-# Optional
-sudo dnf install cmatrix cava neofetch zsh ncmpcpp -y
+sudo dnf install btop alacritty polybar vim feh ranger git picom -y
+sudo dnf install cmatrix cava neofetch zsh ncmpcpp rofi -y
 
 # Add rpm fusion
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y
@@ -73,10 +72,17 @@ git clone https://github.com/eycer1995/configs ~/Documents/configs
 cp -r -p ~/Documents/configs/.config $HOME
 cp -p ~/Documents/configs/.vimrc $HOME
 cp -p ~/Documents/configs/.bashrc $HOME
-cp -r -p ~/Documents/configs/.local $HOME
+mkdir -p ~/.local/share/rofi/themes
+cp ~/Documents/configs/.config/rofi/tokyonight.rasi  ~/.local/share/rofi/themes/tokyonight.rasi
+
+# mpd configs
+mkdir $HOME/.mpd
+touch $HOME/.mpd/mpd.db
+touch $HOME/.mpd/mpd.log
+touch $HOME/.mpd/mpdstate
 
 # Rofi configs
-sudo dnf install papirus-icon-theme -y # rofi icons
+sudo dnf install papirus-icon-theme -y 
 mkdir .fonts
 cd .fonts
 wget -O iosevka.zip "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Iosevka.zip"
@@ -93,7 +99,9 @@ cd ~
 rm -rf ~/Documents/configs
 
 # Download wallpaper
-wget https://w.wallhaven.cc/full/r2/wallhaven-r27x11.jpg -O ~/Pictures/blue.jpg
+if [[ ! -f ~/Pictures/blue.jpg  ]]; then
+    wget https://w.wallhaven.cc/full/r2/wallhaven-r27x11.jpg -O ~/Pictures/blue.jpg
+fi
 
 # pfetch install
 wget -O pfetch https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch
@@ -109,11 +117,10 @@ cd ~
 rm -rf pipes.sh
 
 # Install Heroic Launcher
-sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/37/winehq.repo
-sudo dnf install winehq-stable
-sudo dnf copr enable atim/heroic-games-launcher
-sudo dnf install heroic-games-launcher-bin
-
+sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/37/winehq.repo -y
+sudo dnf install winehq-stable -y
+sudo dnf copr enable atim/heroic-games-launcher -y
+sudo dnf install heroic-games-launcher-bin -y
 
 # Install ohmyzsh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
