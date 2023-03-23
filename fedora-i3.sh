@@ -18,7 +18,7 @@ sudo dnf install akmod-nvidia -y
 # Install VirtualBox
 sudo dnf install @development-tools -y
 sudo dnf install kernel-headers kernel-devel dkms elfutils-libelf-devel qt5-qtx11extras -y
-sudo cat <<EOF | tee /etc/yum.repos.d/virtualbox.repo
+cat <<EOF | sudo tee /etc/yum.repos.d/virtualbox.repo
 [virtualbox]
 name=Fedora 37 - x86_64 - VirtualBox
 baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/36/x86_64
@@ -47,6 +47,8 @@ sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 
 flatpak install -y flathub md.obsidian.Obsidian
 flatpak install -y flathub org.deluge_torrent.deluge
+flatpak override --user --filesystem=$HOME/Music org.deluge_torrent.deluge
+flatpak override --user --filesystem=$HOME/Videos org.deluge_torrent.deluge
 
 # 3D print and circuit design
 flatpak install -y flathub com.ultimaker.cura
