@@ -3,7 +3,7 @@
 sudo dnf update -y
 
 sudo dnf install btop alacritty polybar vim feh ranger git picom -y
-sudo dnf install cmatrix cava neofetch zsh ncmpcpp rofi -y
+sudo dnf install cmatrix cava neofetch zsh ncmpcpp rofi ansible flameshot redshift xautolock -y
 
 # Add rpm fusion
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y
@@ -36,6 +36,7 @@ sudo dnf install p7zip* -y
 sudo dnf install java-1.8.0-openjdk -y
 sudo dnf install piper -y
 sudo dnf install fontawesome5-fonts-all -y
+sudo dnf install lutris -y
 
 # Add flatpak remote
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -43,7 +44,6 @@ sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 # --- All flatpak apps ---
 #
 # Steam and VLC flatpak didn't work as I wanted
-# Heroic launcher needs to be install with .rpm
 
 flatpak install -y flathub md.obsidian.Obsidian
 flatpak install -y flathub org.deluge_torrent.deluge
@@ -59,9 +59,11 @@ flatpak install -y flathub org.blender.Blender
 flatpak install -y flathub com.github.iwalton3.jellyfin-media-player
 # flatpak install -y flathub org.shotcut.Shotcut 
 flatpak install -y flathub com.obsproject.Studio
+flatpak install -y flathub com.calibre_ebook.calibre
+flatpak install -y flathub io.podman_desktop.PodmanDesktop
 
 # Gaming
-flatpak install -y flathub net.lutris.Lutris
+# flatpak install -y flathub net.lutris.Lutris
 flatpak install -y flathub com.discordapp.Discord
 flatpak install -y flathub org.polymc.PolyMC
 
