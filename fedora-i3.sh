@@ -3,7 +3,7 @@
 sudo dnf update -y
 
 sudo dnf install btop alacritty polybar vim feh ranger git picom -y
-sudo dnf install cmatrix cava neofetch zsh ncmpcpp rofi ansible flameshot redshift xautolock -y
+sudo dnf install cmatrix cava neofetch zsh ncmpcpp rofi ansible flameshot redshift xautolock xset -y
 
 # Add rpm fusion
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y
@@ -37,6 +37,7 @@ sudo dnf install java-1.8.0-openjdk -y
 sudo dnf install piper -y
 sudo dnf install fontawesome5-fonts-all -y
 sudo dnf install lutris -y
+sodo dnf install ImageMagick -y
 
 # Add flatpak remote
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -76,6 +77,7 @@ git clone https://github.com/eycer1995/configs ~/Documents/configs
 cp -r -p ~/Documents/configs/.config $HOME
 cp -p ~/Documents/configs/.vimrc $HOME
 cp -p ~/Documents/configs/.bashrc $HOME
+cp -p ~/Documents/confgis/wallpapers/* $HOME/Pictures/
 mkdir -p ~/.local/share/rofi/themes
 cp ~/Documents/configs/.config/rofi/tokyonight.rasi  ~/.local/share/rofi/themes/tokyonight.rasi
 
@@ -102,11 +104,6 @@ cd ~
 # Clean configs
 rm -rf ~/Documents/configs
 
-# Download wallpaper
-if [[ ! -f ~/Pictures/blue.jpg  ]]; then
-    wget https://w.wallhaven.cc/full/r2/wallhaven-r27x11.jpg -O ~/Pictures/blue.jpg
-fi
-
 # pfetch install
 wget -O pfetch https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch
 chmod +x pfetch
@@ -119,6 +116,27 @@ cd pipes.sh
 make PREFIX=$HOME/.local install
 cd ~
 rm -rf pipes.sh
+
+# Install i3lock-color (required for betterlockscreen)
+sudo dnf remove i3lock
+sudo dnf install -y autoconf automake cairo-devel fontconfig gcc libev-devel libjpeg-turbo-devel libXinerama libxkbcommon-devel libxkbcommon-x11-devel libXrandr pam-devel pkgconf xcb-util-image-devel xcb-util-xrm-devel
+cd ~/.config
+git clone https://github.com/Raymo111/i3lock-color.git
+cd i3lock-color
+./install-i3lock-color.sh
+cd ~
+
+# Install betterlockscreen
+cd ~/.config
+wget https://github.com/betterlockscreen/betterlockscreen/archive/refs/heads/main.zip
+unzip main.zip
+
+cd betterlockscreen-main/
+chmod u+x betterlockscreen
+sudo cp betterlockscreen /usr/local/bin/
+cp system/betterlockscreen@.service /etc/systemd/system/
+sudo systemctl enable betterlockscreen@$USER
+betterlockscreen -u ~/Pictures/bls.jpg
 
 # Install Heroic Launcher
 sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/37/winehq.repo -y
