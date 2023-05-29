@@ -31,7 +31,7 @@ sudo dnf install VirtualBox-7.0 -y
 sudo usermod -aG vboxusers eycer
 
 # Misc
-sudo dnf install keepassxc vlc steam syncthing -y
+sudo dnf install keepassxc vlc steam syncthing unzip unrar -y
 sudo dnf install p7zip* -y
 sudo dnf install java-1.8.0-openjdk -y
 sudo dnf install piper -y
@@ -50,6 +50,8 @@ flatpak install -y flathub md.obsidian.Obsidian
 flatpak install -y flathub org.deluge_torrent.deluge
 flatpak override --user --filesystem=$HOME/Music org.deluge_torrent.deluge
 flatpak override --user --filesystem=$HOME/Videos org.deluge_torrent.deluge
+flatpak install -y flathub com.github.IsmaelMartinez.teams_for_linux
+flatpak install -y flathub com.anydesk.Anydesk
 
 # 3D print and circuit design
 flatpak install -y flathub com.ultimaker.cura
@@ -77,9 +79,14 @@ git clone https://github.com/eycer1995/configs ~/Documents/configs
 cp -r -p ~/Documents/configs/.config $HOME
 cp -p ~/Documents/configs/.vimrc $HOME
 cp -p ~/Documents/configs/.bashrc $HOME
+cp -p ~/Documents/configs/.gtkrc-2.0 $HOME
+cp -p ~/Documents/configs/.config/gtk-3.0/settings.ini $HOME/.config/gtk-3.0/settings.ini
 cp -p ~/Documents/confgis/wallpapers/* $HOME/Pictures/
 mkdir -p ~/.local/share/rofi/themes
 cp ~/Documents/configs/.config/rofi/tokyonight.rasi  ~/.local/share/rofi/themes/tokyonight.rasi
+
+mkdir -p ~/.config/dunst
+cp -p ~/Documents/configs/.config/dunst/dunstrc $HOME/.config/dunst/dunstrc
 
 # mpd configs
 mkdir $HOME/.mpd
@@ -100,6 +107,20 @@ rm jetbrains.zip readme.md OFL.txt
 fc-cache -fv
 cd ~
 # select theme using rofi-theme-selector
+
+# GTK config
+sudo dnf install gtk-murrine-engine
+# I think gnome-tweaks is not needed
+# sudo dnf install gnome-tweaks
+wget -O catppuccin-mocha-gtk.zip "https://github.com/catppuccin/gtk/releases/download/v0.6.0/Catppuccin-Mocha-Standard-Mauve-Dark.zip"
+unzip catppuccin-mocha-gtk.zip
+sudo cp -r Catppuccin-Mocha-Standard-Mauve-Dark /usr/share/themes
+rm -r Catppuccin* catppuccin-mocha-gtk.zip
+
+# Install hexchat
+sudo dnf install hexchat
+mkdir $HOME/.config/hexchat
+cp -p ~/Documents/configs/.config/hexchat/colors.conf $HOME/.config/hexchat/colors.conf
 
 # Clean configs
 rm -rf ~/Documents/configs
