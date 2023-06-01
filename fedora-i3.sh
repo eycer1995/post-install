@@ -81,10 +81,10 @@ cp -p ~/Documents/configs/.vimrc $HOME
 cp -p ~/Documents/configs/.bashrc $HOME
 cp -p ~/Documents/configs/.gtkrc-2.0 $HOME
 cp -p ~/Documents/configs/.config/gtk-3.0/settings.ini $HOME/.config/gtk-3.0/settings.ini
-cp -p ~/Documents/confgis/wallpapers/* $HOME/Pictures/
+cp -p ~/Documents/configs/wallpapers/* $HOME/Pictures/
 mkdir -p ~/.local/share/rofi/themes
 cp ~/Documents/configs/.config/rofi/tokyonight.rasi  ~/.local/share/rofi/themes/tokyonight.rasi
-
+cp ~/Documents/configs/.zshrc $HOME/.zshrc
 mkdir -p ~/.config/dunst
 cp -p ~/Documents/configs/.config/dunst/dunstrc $HOME/.config/dunst/dunstrc
 
@@ -109,7 +109,7 @@ cd ~
 # select theme using rofi-theme-selector
 
 # GTK config
-sudo dnf install gtk-murrine-engine
+sudo dnf install gtk-murrine-engine -y
 # I think gnome-tweaks is not needed
 # sudo dnf install gnome-tweaks
 wget -O catppuccin-mocha-gtk.zip "https://github.com/catppuccin/gtk/releases/download/v0.6.0/Catppuccin-Mocha-Standard-Mauve-Dark.zip"
@@ -118,7 +118,7 @@ sudo cp -r Catppuccin-Mocha-Standard-Mauve-Dark /usr/share/themes
 rm -r Catppuccin* catppuccin-mocha-gtk.zip
 
 # Install hexchat
-sudo dnf install hexchat
+sudo dnf install hexchat -y
 mkdir $HOME/.config/hexchat
 cp -p ~/Documents/configs/.config/hexchat/colors.conf $HOME/.config/hexchat/colors.conf
 
@@ -139,7 +139,7 @@ cd ~
 rm -rf pipes.sh
 
 # Install i3lock-color (required for betterlockscreen)
-sudo dnf remove i3lock
+sudo dnf remove i3lock -y
 sudo dnf install -y autoconf automake cairo-devel fontconfig gcc libev-devel libjpeg-turbo-devel libXinerama libxkbcommon-devel libxkbcommon-x11-devel libXrandr pam-devel pkgconf xcb-util-image-devel xcb-util-xrm-devel
 cd ~/.config
 git clone https://github.com/Raymo111/i3lock-color.git
@@ -167,7 +167,8 @@ sudo dnf install heroic-games-launcher-bin -y
 
 # Install ohmyzsh
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-# chsh -s $(which zsh)
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+chsh -s $(which zsh)
 
 # Check Nvidia
 modinfo -F version nvidia 
