@@ -52,6 +52,7 @@ flatpak override --user --filesystem=$HOME/Music org.deluge_torrent.deluge
 flatpak override --user --filesystem=$HOME/Videos org.deluge_torrent.deluge
 flatpak install -y flathub com.github.IsmaelMartinez.teams_for_linux
 flatpak install -y flathub com.anydesk.Anydesk
+flatpak install -y flathub com.brave.Browser
 
 # 3D print and circuit design
 flatpak install -y flathub com.ultimaker.cura
@@ -60,13 +61,14 @@ flatpak install -y flathub org.blender.Blender
 
 # Media
 flatpak install -y flathub com.github.iwalton3.jellyfin-media-player
-# flatpak install -y flathub org.shotcut.Shotcut 
+flatpak install -y flathub org.shotcut.Shotcut 
 flatpak install -y flathub com.obsproject.Studio
 flatpak install -y flathub com.calibre_ebook.calibre
 flatpak install -y flathub io.podman_desktop.PodmanDesktop
 
 # Gaming
 # flatpak install -y flathub net.lutris.Lutris
+flatpak install -y flathub io.github.antimicrox.antimicrox
 flatpak install -y flathub com.discordapp.Discord
 flatpak install -y flathub org.polymc.PolyMC
 
@@ -79,14 +81,21 @@ git clone https://github.com/eycer1995/configs ~/Documents/configs
 cp -r -p ~/Documents/configs/.config $HOME
 cp -p ~/Documents/configs/.vimrc $HOME
 cp -p ~/Documents/configs/.bashrc $HOME
+cp ~/Documents/configs/.zshrc $HOME/.zshrc
 cp -p ~/Documents/configs/.gtkrc-2.0 $HOME
 cp -p ~/Documents/configs/.config/gtk-3.0/settings.ini $HOME/.config/gtk-3.0/settings.ini
 cp -p ~/Documents/configs/wallpapers/* $HOME/Pictures/
 mkdir -p ~/.local/share/rofi/themes
 cp ~/Documents/configs/.config/rofi/tokyonight.rasi  ~/.local/share/rofi/themes/tokyonight.rasi
-cp ~/Documents/configs/.zshrc $HOME/.zshrc
 mkdir -p ~/.config/dunst
 cp -p ~/Documents/configs/.config/dunst/dunstrc $HOME/.config/dunst/dunstrc
+
+# LightDM greeter background
+sudo cp ~/Documents/configs/.confg/lightdm/lightdm-gtk-greeter.conf /etc/lightdm
+sudo cp $HOME/Pictures/ldmb.jpg /usr/share/backgrounds/ldmb.jpg
+
+# get Polybar openweather script
+wget -O /home/$USER/.local/bin/weather.py http://192.168.0.18:3004/eycer/python_scripts/raw/branch/main/weather.py
 
 # mpd configs
 mkdir $HOME/.mpd
@@ -165,10 +174,15 @@ sudo dnf install winehq-stable -y
 sudo dnf copr enable atim/heroic-games-launcher -y
 sudo dnf install heroic-games-launcher-bin -y
 
+# Install Transmissionic
+latest_version=$(curl -s "https://api.github.com/repos/6c65726f79/Transmissionic/releases/latest" | grep -oP '"tag_name": "\K(.*)(?=")')
+wget -O $HOME/.local/bin/Transmissionic-linux-x86_64-$latest_version.AppImage "https://github.com/6c65726f79/Transmissionic/releases/download/$latest_version/Transmissionic-linux-x86_64-$latest_version.AppImage"
+chmod +x $HOME/.local/bin/Transmissionic-linux-x86_64-$latest_version.AppImage
+
 # Install ohmyzsh
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+echo "y" | sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-chsh -s $(which zsh)
+#chsh -s $(which zsh)
 
 # Check Nvidia
 modinfo -F version nvidia 
