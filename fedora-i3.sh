@@ -81,7 +81,6 @@ git clone https://github.com/eycer1995/configs ~/Documents/configs
 cp -r -p ~/Documents/configs/.config $HOME
 cp -p ~/Documents/configs/.vimrc $HOME
 cp -p ~/Documents/configs/.bashrc $HOME
-cp ~/Documents/configs/.zshrc $HOME/.zshrc
 cp -p ~/Documents/configs/.gtkrc-2.0 $HOME
 cp -p ~/Documents/configs/.config/gtk-3.0/settings.ini $HOME/.config/gtk-3.0/settings.ini
 cp -p ~/Documents/configs/wallpapers/* $HOME/Pictures/
@@ -89,6 +88,7 @@ mkdir -p ~/.local/share/rofi/themes
 cp ~/Documents/configs/.config/rofi/tokyonight.rasi  ~/.local/share/rofi/themes/tokyonight.rasi
 mkdir -p ~/.config/dunst
 cp -p ~/Documents/configs/.config/dunst/dunstrc $HOME/.config/dunst/dunstrc
+mkdir .local/bin
 
 # LightDM greeter background
 sudo cp ~/Documents/configs/.config/lightdm/lightdm-gtk-greeter.conf /etc/lightdm
@@ -137,13 +137,9 @@ sudo dnf install hexchat -y
 mkdir $HOME/.config/hexchat
 cp -p ~/Documents/configs/.config/hexchat/colors.conf $HOME/.config/hexchat/colors.conf
 
-# Clean configs
-rm -rf ~/Documents/configs
-
 # pfetch install
 wget -O pfetch https://raw.githubusercontent.com/dylanaraps/pfetch/master/pfetch
 chmod +x pfetch
-mkdir .local/bin
 mv pfetch $HOME/.local/bin/
 
 # pipes.sh
@@ -188,7 +184,11 @@ chmod +x $HOME/.local/bin/Transmissionic-linux-x86_64-$latest_version.AppImage
 # Install ohmyzsh
 echo "y" | sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-#chsh -s $(which zsh)
+sudo chsh -s $(which zsh) $USER
+cp ~/Documents/configs/.zshrc $HOME/.zshrc
+
+# Clean configs
+rm -rf ~/Documents/configs
 
 # Check Nvidia
 modinfo -F version nvidia 
