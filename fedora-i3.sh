@@ -91,11 +91,17 @@ mkdir -p ~/.config/dunst
 cp -p ~/Documents/configs/.config/dunst/dunstrc $HOME/.config/dunst/dunstrc
 
 # LightDM greeter background
-sudo cp ~/Documents/configs/.confg/lightdm/lightdm-gtk-greeter.conf /etc/lightdm
+sudo cp ~/Documents/configs/.config/lightdm/lightdm-gtk-greeter.conf /etc/lightdm
 sudo cp $HOME/Pictures/ldmb.jpg /usr/share/backgrounds/ldmb.jpg
 
 # get Polybar openweather script
-wget -O /home/$USER/.local/bin/weather.py http://192.168.0.18:3004/eycer/python_scripts/raw/branch/main/weather.py
+wget -O $HOME/.local/bin/weather.py http://192.168.0.18:3004/eycer/python_scripts/raw/branch/main/weather.py
+# Comment the polybar weather module if weather script is not downloaded
+if [ ! -f "$HOME/.local/bin/weather.py" ]; then
+	sed -i '153,160 s/^/;/' "$HOME/.config/polybar/config.ini"
+else
+	echo "weather.py found."
+fi
 
 # mpd configs
 mkdir $HOME/.mpd
