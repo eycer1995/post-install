@@ -14,18 +14,19 @@ sudo dnf install mpd -y
 
 # Install Nvidia Drives
 sudo dnf install akmod-nvidia -y
+sudo dnf install xorg-x11-drv-nvidia-cuda -y #optional for cuda/nvdec/nvenc support
 
 # Install VirtualBox
 sudo dnf install @development-tools -y
 sudo dnf install kernel-headers kernel-devel dkms elfutils-libelf-devel qt5-qtx11extras -y
 cat <<EOF | sudo tee /etc/yum.repos.d/virtualbox.repo
 [virtualbox]
-name=Fedora 37 - x86_64 - VirtualBox
+name=Fedora 39 - x86_64 - VirtualBox
 baseurl=http://download.virtualbox.org/virtualbox/rpm/fedora/36/x86_64
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
-gpgkey=https://www.virtualbox.org/download/oracle_vbox.asc
+gpgkey=https://www.virtualbox.org/download/oracle_vbox_2016.asc
 EOF
 sudo dnf install VirtualBox-7.0 -y
 sudo usermod -aG vboxusers eycer
@@ -37,7 +38,9 @@ sudo dnf install java-1.8.0-openjdk -y
 sudo dnf install piper -y
 sudo dnf install fontawesome5-fonts-all -y
 sudo dnf install lutris -y
-sodo dnf install ImageMagick -y
+sudo dnf install ImageMagick -y
+sudo dnf install sshpass nmap -y
+sudo dnf install hashcat hcxtools -y
 
 # Add flatpak remote
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -50,13 +53,12 @@ flatpak install -y flathub md.obsidian.Obsidian
 flatpak install -y flathub org.deluge_torrent.deluge
 flatpak override --user --filesystem=$HOME/Music org.deluge_torrent.deluge
 flatpak override --user --filesystem=$HOME/Videos org.deluge_torrent.deluge
-flatpak install -y flathub com.github.IsmaelMartinez.teams_for_linux
 flatpak install -y flathub com.anydesk.Anydesk
-flatpak install -y flathub com.brave.Browser
+flatpak install -y flathub com.slack.Slack
+flatpak install -y flathub us.zoom.Zoom
 
 # 3D print and circuit design
 flatpak install -y flathub com.ultimaker.cura
-flatpak install -y flathub org.kicad.KiCad
 flatpak install -y flathub org.blender.Blender
 
 # Media
@@ -64,7 +66,6 @@ flatpak install -y flathub com.github.iwalton3.jellyfin-media-player
 flatpak install -y flathub org.shotcut.Shotcut 
 flatpak install -y flathub com.obsproject.Studio
 flatpak install -y flathub com.calibre_ebook.calibre
-flatpak install -y flathub io.podman_desktop.PodmanDesktop
 
 # Gaming
 # flatpak install -y flathub net.lutris.Lutris
@@ -171,10 +172,10 @@ sudo systemctl enable betterlockscreen@$USER
 betterlockscreen -u ~/Pictures/bls.jpg
 
 # Install Heroic Launcher
-sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/37/winehq.repo -y
-sudo dnf install winehq-stable -y
-sudo dnf copr enable atim/heroic-games-launcher -y
-sudo dnf install heroic-games-launcher-bin -y
+#sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/37/winehq.repo -y
+#sudo dnf install winehq-stable -y
+#sudo dnf copr enable atim/heroic-games-launcher -y
+#sudo dnf install heroic-games-launcher-bin -y
 
 # Install Transmissionic
 latest_version=$(curl -s "https://api.github.com/repos/6c65726f79/Transmissionic/releases/latest" | grep -oP '"tag_name": "\K(.*)(?=")')
